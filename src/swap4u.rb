@@ -1,5 +1,7 @@
 require 'colorize'
 require 'tty-prompt'
+require 'csv'
+
 users = []
 the_user_wants_to_quit = false
 until the_user_wants_to_quit
@@ -8,7 +10,7 @@ until the_user_wants_to_quit
     puts ""   
     puts "                                                                  ============ Welcome ============ ".cyan
     puts "                                                                  ============    To   ============ ".cyan
-    puts "                                                                   ___  _ _ _  ___  ___   __   _ _ ".red
+    puts "                                                                   ___  _ _ _  ___  ___   __   _ _  ".red
     puts "                                                                  / __>| | | || . || . \ /. | | | | ".blue
     puts "                                                                  \__ \| | | ||   ||  _//_  .|| ' | ".green
     puts "                                                                  <___/|__/_/ |_|_||_|    |_| `___' ".yellow
@@ -52,14 +54,46 @@ until the_user_wants_to_quit
             gets
             admin = {username: "admin", password: "password"}
             while admin != {}
-                puts "what would you like to do"
                 # admin action
                 # create survey
                 # delete survey
                 # logout
-                input = gets.chomp
-                if input == "logout"
-                    admin = {}
+                puts "What would you like to do?"
+                puts "Optional : create survey, delete survey, logout"
+                input = "create survey"
+                # input = gets.chomp.downcase
+                if input == "create survey"
+                    questions = []
+                    # loop do
+                    the_user_wants_to_quit = false
+                    until the_user_wants_to_quit
+                        hash = {}
+                        puts "What a question?"
+                        hash[:question] = gets.chomp
+                        # questions.push(question)
+                        puts "What an answer A"
+                        hash[:answerA] = gets.chomp
+                        # questions.push(answerA)
+                        puts "What an answer B"
+                        hash[:answerB] = gets.chomp
+                        # questions.push(answerB)
+                        puts "What an answer C"
+                        hash[:answerC] = gets.chomp
+                        questions.push(hash)
+                        p questions
+                        puts "Another Question?"
+                        input = gets.chomp 
+                        if input == "no"
+                            the_user_wants_to_quit = true
+                        end
+                    end
+                    # get the name of the survey
+                    # create a new survey file with that name
+                    # write each of the questions/answers to the csv
+
+
+                elsif input == "logout"
+                        admin = {}
                 end
             end
         when 2
@@ -81,6 +115,7 @@ until the_user_wants_to_quit
         case user_input
         when 1
             # in the general user menu, when the user logs in
+            puts "Heys"
             user = {username: "foo", password: "bar"}
 
         when 2
