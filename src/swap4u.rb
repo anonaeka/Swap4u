@@ -77,7 +77,7 @@ until the_user_wants_to_quit
                 # delete survey
                 # logout
                 puts "What would you like to do?"
-                puts "Optional : [C]Create survey, [D]Delete survey, [L]Logout"
+                puts "Optional : [C]reate Survey, [D]elete Survey, [L]ogout"
                 input = gets.chomp.downcase
                 if input == "c"
                     # Create survey
@@ -99,12 +99,21 @@ until the_user_wants_to_quit
                         end
                         p questions
                         puts "Another Question?"
-                        input = gets.chomp 
-                        if input == "no"
+                        puts "Enter if want to continue, [N] if want to go back"
+                        input = gets.chomp.downcase
+                        if input == "n"
                             the_user_wants_to_quit = true
                         end
                     end
-
+                elsif input == "d"
+                    the_user_wants_to_quit = false
+                    until the_user_wants_to_quit
+                        puts "Enter if want to continue, [N] if want to go back"
+                        input = gets.chomp.downcase
+                        if input == "n"
+                            the_user_wants_to_quit = true
+                        end
+                end
                 elsif input == "l"
                     admin_login = false
                 end
@@ -115,7 +124,8 @@ until the_user_wants_to_quit
             print "\e[2J\e[f"
         end
     when 2
-        user = {}
+        # user = {}
+        # User Action
         puts "======================".cyan
         sleep(0.3)
         print "\e[2J\e[f"
@@ -127,9 +137,45 @@ until the_user_wants_to_quit
         user_input = prompt.select("Select an action?", choices)
         case user_input
         when 1
-            # in the general user menu, when the user logs in
-            user = {username: "foo", password: "bar"}
-
+            #UserLogin
+            user_login = false
+            puts "======================".cyan
+            sleep(0.2)
+            print "\e[2J\e[f"
+            true_user = false
+            puts "What is your Username?"
+            usernname = gets.chomp
+            puts "What is your Password?"
+            password = gets.chomp
+            CSV.open("data/users.csv", "r") do |csv|
+                csv.each do |line|
+                    if line[0] == usernname
+                        if line[1] == password
+                        true_user = true
+                        user_login = true
+                        print "\e[2J\e[f"
+                        end
+                    end
+                end
+            end
+            if user_login == false
+                puts "Incorrect Information."
+                puts "Press enter to go back menu."
+                gets
+            end
+            #UserAction
+            while user_login == true
+                puts "Hello User"
+                puts "What would you like to do?"
+                puts "Optional : [D]o Survey, [D]elete Answer, [L]ogout" 
+                input = gets.chomp.downcase
+                if input == "d"
+                #DoSurvey
+                    answersurvey = []
+                elsif input == "l"
+                    user_login = false
+                end
+            end
         when 2
             # in the general user menu, when the user signs up
             user = {username: "foo", password: "bar"}
@@ -151,6 +197,16 @@ until the_user_wants_to_quit
     end
 end
 
-puts "Goodbye"
+puts ""
+puts " 
+######    #######   #######  ########  ########  ##    ## ######## 
+##    ##  ##     ## ##     ## ##     ## ##     ##  ##  ##  ##       
+##        ##     ## ##     ## ##     ## ##     ##   ####   ##       
+##   #### ##     ## ##     ## ##     ## ########     ##    ######   
+##    ##  ##     ## ##     ## ##     ## ##     ##    ##    ##       
+##    ##  ##     ## ##     ## ##     ## ##     ##    ##    ##       
+ ######    #######   #######  ########  ########     ##    ######## ".red
+puts ""
+
 # take the new updated users_array
 # write to CSV
