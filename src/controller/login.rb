@@ -8,8 +8,6 @@ require_relative "../model/signupid.rb"
 
 
 
-
-
 module LoginMenu
     def self.loginmenu
 

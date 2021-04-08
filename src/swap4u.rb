@@ -45,24 +45,42 @@ until the_user_wants_to_quit
 
         case user_input
         when 1
-            admin = {}
+            admin_login = false
             puts "======================".cyan
             sleep(0.2)
             print "\e[2J\e[f"
-            puts "Hello Admin"
-            puts "press enter to continue"
-            gets
-            admin = {username: "admin", password: "password"}
-            while admin != {}
-                # admin action
+            # Admin action
+            true_admin = false
+            puts "What is your Adminname?"
+            adminname = gets.chomp
+            puts "What is your Adminpassword?"
+            adminpass = gets.chomp
+            CSV.open("data/adminusers.csv", "r") do |csv|
+                csv.each do |line|
+                    if line[0] == adminname
+                        if line[1] == adminpass
+                        true_admin = true
+                        admin_login = true
+                        print "\e[2J\e[f"
+                        end
+                    end
+                end
+            end
+            if admin_login == false
+                puts "Incorrect Information."
+                puts "Press enter to go back menu."
+                gets
+            end
+            while admin_login == true
+                puts "Hello Admin"
                 # create survey
                 # delete survey
                 # logout
                 puts "What would you like to do?"
-                puts "Optional : [C]create survey, [D]delete survey, logout"
-                # input = "c"
+                puts "Optional : [C]Create survey, [D]Delete survey, [L]Logout"
                 input = gets.chomp.downcase
                 if input == "c"
+                    # Create survey
                     questions = []
                     the_user_wants_to_quit = false
                     until the_user_wants_to_quit
@@ -76,16 +94,8 @@ until the_user_wants_to_quit
                         puts "What an answer C"
                         hash[:answerC] = gets.chomp
                         questions.push(hash)
-                    #     CSV.open("data/quiz/survey.csv", "a") {|file|
-                    #         file.write("#{question},#{answerA},#{answerB},#{answerC}\n")
-                    # }
                         CSV.open("data/quiz/survey.csv", "a+") do |csv|
                             csv << hash.values
-                            # csv << [question,answerA,answerB,answerC]
-                            # hash[:question] = question
-                            # hash[:answerA] = answerA
-                            # hash[:answerB] = answerB
-                            # hash[:answerC] = answerC
                         end
                         p questions
                         puts "Another Question?"
@@ -94,11 +104,9 @@ until the_user_wants_to_quit
                             the_user_wants_to_quit = true
                         end
                     end
-                    # get the name of the survey
-                    # create a new survey file with that name
-                    # write each of the questions/answers to the csv
-                elsif input == "logout"
-                        admin = {}
+
+                elsif input == "l"
+                    admin_login = false
                 end
             end
         when 2
