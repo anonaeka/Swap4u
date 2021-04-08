@@ -2,7 +2,7 @@ require 'colorize'
 require 'tty-prompt'
 require 'csv'
 
-users = []
+# users = []
 the_user_wants_to_quit = false
 until the_user_wants_to_quit
     puts ""
@@ -106,6 +106,7 @@ until the_user_wants_to_quit
                         end
                     end
                 elsif input == "d"
+                    #Delete Survey
                     the_user_wants_to_quit = false
                     until the_user_wants_to_quit
                         puts "Enter if want to continue, [N] if want to go back"
@@ -124,8 +125,7 @@ until the_user_wants_to_quit
             print "\e[2J\e[f"
         end
     when 2
-        # user = {}
-        # User Action
+        # Part of Users
         puts "======================".cyan
         sleep(0.3)
         print "\e[2J\e[f"
@@ -167,29 +167,50 @@ until the_user_wants_to_quit
             while user_login == true
                 puts "Hello User"
                 puts "What would you like to do?"
-                puts "Optional : [D]o Survey, [D]elete Answer, [L]ogout" 
+                puts "Optional : [S]urvey, [D]elete Answer, [L]ogout" 
                 input = gets.chomp.downcase
-                if input == "d"
+                if input == "s"
                 #DoSurvey
                     answersurvey = []
+                elsif input == "d"
+                    user_login = false
                 elsif input == "l"
                     user_login = false
                 end
             end
         when 2
-            # in the general user menu, when the user signs up
-            user = {username: "foo", password: "bar"}
+            #UserSignup
+            # user_signup = false
+            usersignup = []
+            signuser = {}
+            puts "======================".cyan
+            sleep(0.2)
+            print "\e[2J\e[f"
+            puts "What is your username?"
+            signuser[:username] = gets.chomp
+            puts "What is your password?"
+            signuser[:password] = gets.chomp
+            puts "What is your email?"
+            signuser[:emailuser] = gets.chomp
+            usersignup.push(signuser)
+            CSV.open("data/users.csv", "a+") do |csv|
+                csv << signuser.values
+                puts "== Congratulations =="
+                puts "You have successfully registered."
+                puts "Enter to comeback menu"
+                gets
+            end
         when 3
             # In the general user menu, when the user exits
             puts "======================".cyan
             sleep(0.2)
             print "\e[2J\e[f"
         end
-        if user != {}
+        # if user != {}
             # user can fill out a surver
             # user can view points
             # user can change email address
-        end
+        # end
 
     when 3
         print "\e[2J\e[f"
@@ -197,16 +218,15 @@ until the_user_wants_to_quit
     end
 end
 
-puts ""
+print "\e[2J\e[f"
 puts " 
-######    #######   #######  ########  ########  ##    ## ######## 
-##    ##  ##     ## ##     ## ##     ## ##     ##  ##  ##  ##       
-##        ##     ## ##     ## ##     ## ##     ##   ####   ##       
-##   #### ##     ## ##     ## ##     ## ########     ##    ######   
-##    ##  ##     ## ##     ## ##     ## ##     ##    ##    ##       
-##    ##  ##     ## ##     ## ##     ## ##     ##    ##    ##       
- ######    #######   #######  ########  ########     ##    ######## ".red
+                                                ######    #######   #######  ########  ########  ##    ## ######## 
+                                                ##    ##  ##     ## ##     ## ##     ## ##     ##  ##  ##  ##       
+                                                ##        ##     ## ##     ## ##     ## ##     ##   ####   ##       
+                                                ##   #### ##     ## ##     ## ##     ## ########     ##    ######   
+                                                ##    ##  ##     ## ##     ## ##     ## ##     ##    ##    ##       
+                                                ##    ##  ##     ## ##     ## ##     ## ##     ##    ##    ##       
+                                                 ######    #######   #######  ########  ########     ##    ######## ".red
 puts ""
-
 # take the new updated users_array
 # write to CSV
