@@ -59,27 +59,34 @@ until the_user_wants_to_quit
                 # delete survey
                 # logout
                 puts "What would you like to do?"
-                puts "Optional : create survey, delete survey, logout"
-                input = "create survey"
-                # input = gets.chomp.downcase
-                if input == "create survey"
+                puts "Optional : [C]create survey, [D]delete survey, logout"
+                # input = "c"
+                input = gets.chomp.downcase
+                if input == "c"
                     questions = []
-                    # loop do
                     the_user_wants_to_quit = false
                     until the_user_wants_to_quit
                         hash = {}
                         puts "What a question?"
                         hash[:question] = gets.chomp
-                        # questions.push(question)
                         puts "What an answer A"
                         hash[:answerA] = gets.chomp
-                        # questions.push(answerA)
                         puts "What an answer B"
                         hash[:answerB] = gets.chomp
-                        # questions.push(answerB)
                         puts "What an answer C"
                         hash[:answerC] = gets.chomp
                         questions.push(hash)
+                    #     CSV.open("data/quiz/survey.csv", "a") {|file|
+                    #         file.write("#{question},#{answerA},#{answerB},#{answerC}\n")
+                    # }
+                        CSV.open("data/quiz/survey.csv", "a+") do |csv|
+                            csv << hash.values
+                            # csv << [question,answerA,answerB,answerC]
+                            # hash[:question] = question
+                            # hash[:answerA] = answerA
+                            # hash[:answerB] = answerB
+                            # hash[:answerC] = answerC
+                        end
                         p questions
                         puts "Another Question?"
                         input = gets.chomp 
@@ -90,8 +97,6 @@ until the_user_wants_to_quit
                     # get the name of the survey
                     # create a new survey file with that name
                     # write each of the questions/answers to the csv
-
-
                 elsif input == "logout"
                         admin = {}
                 end
@@ -115,7 +120,6 @@ until the_user_wants_to_quit
         case user_input
         when 1
             # in the general user menu, when the user logs in
-            puts "Heys"
             user = {username: "foo", password: "bar"}
 
         when 2
