@@ -180,7 +180,6 @@ until the_user_wants_to_quit
             end
         when 2
             #UserSignup
-            # user_signup = false
             usersignup = []
             signuser = {}
             puts "======================".cyan
@@ -195,9 +194,9 @@ until the_user_wants_to_quit
             usersignup.push(signuser)
             CSV.open("data/users.csv", "a+") do |csv|
                 csv << signuser.values
-                puts "== Congratulations =="
+                puts "======= Congratulations ======="
                 puts "You have successfully registered."
-                puts "Enter to comeback menu"
+                puts "Press enter to go back menu"
                 gets
             end
         when 3
