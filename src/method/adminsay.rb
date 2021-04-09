@@ -27,6 +27,14 @@ module Adminsay
     puts "" 
   end
 
+  def errorfuctions
+    print "\e[2J\e[f"
+    sleep(0.2)
+    puts "Please type the first letters of function do you need.".red
+    sleep(2)
+    print "\e[2J\e[f"
+  end
+
   def goodbye
     puts " 
 ######    #######   #######  ########  ########  ##    ## ######## 

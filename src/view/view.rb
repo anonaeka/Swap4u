@@ -10,9 +10,14 @@ module View
           {name:'Skip', value: 2},
       ]
       user_input = prompt.select("Select an action?", choices)
-      when 1
+      case user_input
+        when 1
         sleep(0.2)
         print "\e[2J\e[f"
-      end
+        end
+        when 2
+        sleep(0.2)
+        print "\e[2J\e[f"
+        end
     end
 end

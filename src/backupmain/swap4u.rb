@@ -7,7 +7,6 @@ require_relative "method/controller.rb"
 
 include Adminsay
 include Adcontroller
-
 user = {}
 the_user_wants_to_quit = false
 until the_user_wants_to_quit
@@ -64,15 +63,51 @@ Adminsay.thenametitle
                 input = gets.chomp.downcase
                 if input == "c"
                     # Create survey
-                    Adcontroller.createquiz
+                    
+                    # questions = []
+                    # the_user_wants_to_quit = false
+                    # until the_user_wants_to_quit
+                    #     hash = {}
+                    #     puts "What a question?"
+                    #     hash[:question] = gets.chomp
+                    #     puts "What an answer A"
+                    #     hash[:answerA] = gets.chomp
+                    #     puts "What an answer B"
+                    #     hash[:answerB] = gets.chomp
+                    #     puts "What an answer C"
+                    #     hash[:answerC] = gets.chomp
+                    #     questions.push(hash)
+                    #     CSV.open("data/quiz/survey.csv", "a+") do |csv|
+                    #         csv << hash.values
+                    #     end
+                    #     p questions
+                    #     puts "Another Question?"
+                    #     puts "Enter if want to continue, [N] if want to go back"
+                    #     input = gets.chomp.downcase
+                    #     if input == "n"
+                    #         the_user_wants_to_quit = true
+                    #     end
+                    end
                 elsif input == "r"
                     # Read Survey
-                    Adcontroller.readsurvey
+                    the_user_wants_to_quit = false
+                    until the_user_wants_to_quit
+                        CSV.open("data/quiz/survey.csv","r") do |csv|
+                            csv.each do |questions|
+                                puts "Question #{questions}"
+                            end
+                        end
+                        puts "Press enter to go back menu."
+                        gets
+                        the_user_wants_to_quit = true
+                        print "\e[2J\e[f"
+                        sleep(0.2)
+                    end
                 elsif input == "b"
                     # Backup Survey File
                     the_user_wants_to_quit = false
                     until the_user_wants_to_quit
-                        File.rename("data/quiz/survey.csv", "data/quizbackup/backup.csv")
+                        File.rename("data/quiz/survey.csv", "data/quiz/backup2.csv")
                         CSV.open("data/quiz/survey.csv", "a")
                         print "\e[2J\e[f"
                         sleep(0.2)
@@ -96,11 +131,14 @@ Adminsay.thenametitle
                     sleep(0.2)
                     print "\e[2J\e[f"
                 else
-                    Adminsay.errorfuctions
+                    print "\e[2J\e[f"
+                    sleep(0.2)
+                    puts "Please type the first letters of function do you need.".red
+                    sleep(2)
+                    print "\e[2J\e[f"
                 end
             end
         when 2
-            # Exit
             puts "======================".cyan
             sleep(0.2)
             print "\e[2J\e[f"
@@ -152,6 +190,7 @@ Adminsay.thenametitle
                 puts "Optional : [S]urvey, [L]ogout" 
                 input = gets.chomp.downcase
                 if input == "s"
+                    
                 #DoSurvey
                     listquestions = []
                     puts "======================".cyan
@@ -172,19 +211,21 @@ Adminsay.thenametitle
                         puts " #{hash[:answerC]}"
                         p "---------------------"
                         puts "Enter your answer"
-                        input = gets.chomp.downcase
+                        input = gets.chomp
                         listanswers.push(input)
                     end
                     p listanswers
                     CSV.open("data/answer/userans.csv", "a+") do |csv|
                         csv << listanswers
                     end
-                    print "\e[2J\e[f"
-                    sleep(0.2)
                 elsif input == "l"
                     user_login = false
                 else
-                    Adminsay.errorfuctions
+                    print "\e[2J\e[f"
+                    sleep(0.2)
+                    puts "Please type the first letters of function do you need.".red
+                    sleep(2)
+                    print "\e[2J\e[f"
                 end
             end
         when 2
@@ -209,7 +250,7 @@ Adminsay.thenametitle
                 gets
             end
         when 3
-            # Exit
+            # In the general user menu, when the user exits
             puts "======================".cyan
             sleep(0.2)
             print "\e[2J\e[f"
