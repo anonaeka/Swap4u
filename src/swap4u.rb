@@ -77,7 +77,7 @@ until the_user_wants_to_quit
                 # delete survey
                 # logout
                 puts "What would you like to do?"
-                puts "Optional : [C]reate Survey, [D]elete Survey, [L]ogout"
+                puts "Optional : [C]reate Survey, [E]dit Survey, [L]ogout"
                 input = gets.chomp.downcase
                 if input == "c"
                     # Create survey
@@ -105,10 +105,15 @@ until the_user_wants_to_quit
                             the_user_wants_to_quit = true
                         end
                     end
-                elsif input == "d"
-                    #Delete Survey
+                elsif input == "e"
+                    #Edit Survey
                     the_user_wants_to_quit = false
                     until the_user_wants_to_quit
+                        CSV.open("data/quiz/survey.csv", "a+") do |csv|
+                            csv.each do |questions|
+                                puts "Question #{questions}"
+                            end
+                        end
                         puts "Enter if want to continue, [N] if want to go back"
                         input = gets.chomp.downcase
                         if input == "n"
