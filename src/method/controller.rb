@@ -48,14 +48,33 @@ module Adcontroller
     def backupfile
         print "Type ".yellow
         print "Name".red
-        print " to Backup File".yellow
+        print " to Backup Survey File".yellow
         puts ""
         renamebackup = gets.chomp.downcase
         File.rename("data/quiz/survey.csv", "data/quizbackup/" + renamebackup + ".csv")
         CSV.open("data/quiz/survey.csv", "a")
         print "\e[2J\e[f"
-        sleep(0.2)
-        puts "Completed".yellow
+        sleep(0.7)
+        puts "Backup Completed".yellow
+        puts "Press enter to go back menu.".green
+        gets
+        print "\e[2J\e[f"
+    end
+
+    def backupanswerfile
+        print "Type ".yellow
+        print "Name".red
+        print " to Backup Answer File".yellow
+        puts ""
+        answerbackup = gets.chomp.downcase
+        File.rename("data/answer/userans.csv", "data/ansbackup/" + answerbackup + ".csv")
+        CSV.open("data/answer/userans.csv", "a")
+        print "\e[2J\e[f"
+        sleep(0.7)
+        puts "Backup Completed".yellow
+        puts "Press enter to go back menu.".green
+        gets
+        print "\e[2J\e[f"
     end
 
     def deletecsv

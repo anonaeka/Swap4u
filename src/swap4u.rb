@@ -67,14 +67,25 @@ Adminsay.thenametitle
                     Adcontroller.readsurvey
                 elsif input == "b"
                     # Backup Survey File
+                    print "\e[2J\e[f"
                     the_user_wants_to_quit = false
                     until the_user_wants_to_quit
-                        Adcontroller.backupfile
-                        puts "Press enter to go back menu.".green
-                        gets
+                        choices = [
+                            {name:'Backup Quiz', value: 1},
+                            {name:'Backup Answer', value: 2},
+                            {name:'Back', value: 3},
+                        ]
+                        user_input = prompt.select("Select an action?", choices)
+                        case user_input
+                        when 1
+                            Adcontroller.backupfile
+                        when 2
+                            Adcontroller.backupanswerfile
+                        when 3
                         the_user_wants_to_quit = true
                         print "\e[2J\e[f"
                     end
+                end
                 elsif input == "d"
                     # Delete Survey File
                     the_user_wants_to_quit = false
