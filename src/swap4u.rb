@@ -1,8 +1,7 @@
 require 'colorize'
 require 'tty-prompt'
 require 'csv'
-
-# users = []
+user = {}
 the_user_wants_to_quit = false
 until the_user_wants_to_quit
     puts ""
@@ -45,6 +44,7 @@ until the_user_wants_to_quit
 
         case user_input
         when 1
+            # Part of Admin
             admin_login = false
             puts "======================".cyan
             sleep(0.2)
@@ -73,11 +73,10 @@ until the_user_wants_to_quit
             end
             while admin_login == true
                 puts "Hello Admin"
-                # create survey
-                # delete survey
-                # logout
                 puts "What would you like to do?"
-                puts "Optional : [C]reate Survey, [E]dit Survey, [L]ogout"
+                puts "====================  Optional  ===================="
+                puts "[C]reate Survey, [R]ead Survey, [B]ack Survey File"
+                puts "====================  [L]ogout  ===================="
                 input = gets.chomp.downcase
                 if input == "c"
                     # Create survey
@@ -105,11 +104,26 @@ until the_user_wants_to_quit
                             the_user_wants_to_quit = true
                         end
                     end
-                elsif input == "e"
-                    #Edit Survey
+                elsif input == "r"
+                    # Read Survey
                     the_user_wants_to_quit = false
                     until the_user_wants_to_quit
-                        CSV.open("data/quiz/survey.csv", "a+") do |csv|
+                        CSV.open("data/quiz/survey.csv","r") do |csv|
+                            csv.each do |questions|
+                                puts "Question #{questions}"
+                            end
+                        end
+                        puts "Press enter to go back menu."
+                        gets
+                        # input = gets.chomp.downcase
+                        # if input == "n"
+                            the_user_wants_to_quit = true
+                    end
+                elsif input == "b"
+                    # Backup Survey File
+                    the_user_wants_to_quit = false
+                    until the_user_wants_to_quit
+                        CSV.open("data/quiz/survey.csv", "r") do |csv|
                             csv.each do |questions|
                                 puts "Question #{questions}"
                             end
@@ -119,7 +133,7 @@ until the_user_wants_to_quit
                         if input == "n"
                             the_user_wants_to_quit = true
                         end
-                end
+                    end
                 elsif input == "l"
                     admin_login = false
                 end
@@ -158,6 +172,7 @@ until the_user_wants_to_quit
                         if line[1] == password
                         true_user = true
                         user_login = true
+                        user[:username] = usernname
                         print "\e[2J\e[f"
                         end
                     end
@@ -172,12 +187,35 @@ until the_user_wants_to_quit
             while user_login == true
                 puts "Hello User"
                 puts "What would you like to do?"
-                puts "Optional : [S]urvey, [D]elete Answer, [L]ogout" 
+                puts "Optional : [S]urvey, [V]iew Point, [L]ogout" 
                 input = gets.chomp.downcase
                 if input == "s"
                 #DoSurvey
-                    answersurvey = []
-                elsif input == "d"
+                    listquestions = []
+                    CSV.open("data/quiz/survey.csv", "r") do |csv|
+                        csv.each do |line|
+                            hash = {question: line[0], answerA: line[1], answerB: line[2], answerC: line[3]}
+                            listquestions.push(hash)
+                        end
+                    end
+                    listanswers = [user[:username]]
+                    listquestions.each do |hash|
+                        p "---------------------"
+                        puts " #{hash[:question]}"
+                        puts " #{hash[:answerA]}"
+                        puts " #{hash[:answerB]}"
+                        puts " #{hash[:answerC]}"
+                        p "---------------------"
+                        puts "Enter your answer"
+                        input = gets.chomp
+                        listanswers.push(input)
+                    end
+                    p listanswers
+                    CSV.open("data/answer/userans.csv", "a+") do |csv|
+                        csv << listanswers
+                    end
+
+                elsif input == "v"
                     user_login = false
                 elsif input == "l"
                     user_login = false
@@ -211,7 +249,7 @@ until the_user_wants_to_quit
             print "\e[2J\e[f"
         end
         # if user != {}
-            # user can fill out a surver
+            # user can fill out a survey
             # user can view points
             # user can change email address
         # end
