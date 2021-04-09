@@ -1,25 +1,14 @@
 require 'colorize'
 require 'tty-prompt'
 require 'csv'
+
+require_relative "method/adminsay.rb"
+
+include Adminsay
 user = {}
 the_user_wants_to_quit = false
 until the_user_wants_to_quit
-    puts ""
-    puts ""
-    puts ""   
-    puts "                                                                  ============ Welcome ============ ".cyan
-    puts "                                                                  ============    To   ============ ".cyan
-    puts "                                                                   ___  _ _ _  ___  ___   __   _ _  ".red
-    puts "                                                                  / __>| | | || . || . \ /. | | | | ".blue
-    puts "                                                                  \__ \| | | ||   ||  _//_  .|| ' | ".green
-    puts "                                                                  <___/|__/_/ |_|_||_|    |_| `___' ".yellow
-    puts ""
-    puts "                                                                                  By"
-    puts "                                                                           Anon Jaloenklung"
-    puts "                                                                  ================================= ".cyan
-    puts "                                                                  ================================= ".cyan
-    puts ""
-    puts "" 
+Adminsay.thenametitle
     prompt = TTY::Prompt.new(active_color: :red)
     choices = [
         {name:'Admin', value: 1},
@@ -72,11 +61,7 @@ until the_user_wants_to_quit
                 gets
             end
             while admin_login == true
-                puts "Hello Admin"
-                puts "What would you like to do?"
-                puts "====================  Optional  ===================="
-                puts "[C]reate Survey, [R]ead Survey, [B]ack Survey File"
-                puts "====================  [L]ogout  ===================="
+                Adminsay.adminsay
                 input = gets.chomp.downcase
                 if input == "c"
                     # Create survey
@@ -115,27 +100,42 @@ until the_user_wants_to_quit
                         end
                         puts "Press enter to go back menu."
                         gets
-                        # input = gets.chomp.downcase
-                        # if input == "n"
-                            the_user_wants_to_quit = true
+                        the_user_wants_to_quit = true
+                        print "\e[2J\e[f"
+                        sleep(0.2)
                     end
                 elsif input == "b"
                     # Backup Survey File
                     the_user_wants_to_quit = false
                     until the_user_wants_to_quit
-                        CSV.open("data/quiz/survey.csv", "r") do |csv|
-                            csv.each do |questions|
-                                puts "Question #{questions}"
-                            end
-                        end
-                        puts "Enter if want to continue, [N] if want to go back"
-                        input = gets.chomp.downcase
-                        if input == "n"
-                            the_user_wants_to_quit = true
-                        end
+                        File.rename("data/quiz/survey.csv", "data/quiz/backup2.csv")
+                        CSV.open("data/quiz/survey.csv", "a")
+                        print "\e[2J\e[f"
+                        sleep(0.2)
+                        puts "Complete."
+                        puts "Press enter to go back menu."
+                        gets
+                        the_user_wants_to_quit = true
+                    end
+                elsif input == "d"
+                    # Delete Survey File
+                    the_user_wants_to_quit = false
+                    until the_user_wants_to_quit
+                        puts "Enter survey.csv to delete"
+                        puts "Press enter to go back menu."
+                        gets
+                        the_user_wants_to_quit = true
                     end
                 elsif input == "l"
                     admin_login = false
+                    sleep(0.2)
+                    print "\e[2J\e[f"
+                else
+                    print "\e[2J\e[f"
+                    sleep(0.2)
+                    puts "Please type the first letters of function do you need.".red
+                    sleep(2)
+                    print "\e[2J\e[f"
                 end
             end
         when 2
@@ -190,8 +190,12 @@ until the_user_wants_to_quit
                 puts "Optional : [S]urvey, [V]iew Point, [L]ogout" 
                 input = gets.chomp.downcase
                 if input == "s"
+                    
                 #DoSurvey
                     listquestions = []
+                    puts "======================".cyan
+                    sleep(0.2)
+                    print "\e[2J\e[f"
                     CSV.open("data/quiz/survey.csv", "r") do |csv|
                         csv.each do |line|
                             hash = {question: line[0], answerA: line[1], answerB: line[2], answerC: line[3]}
@@ -219,6 +223,12 @@ until the_user_wants_to_quit
                     user_login = false
                 elsif input == "l"
                     user_login = false
+                else
+                    print "\e[2J\e[f"
+                    sleep(0.2)
+                    puts "Please type the first letters of function do you need.".red
+                    sleep(2)
+                    print "\e[2J\e[f"
                 end
             end
         when 2
@@ -237,9 +247,9 @@ until the_user_wants_to_quit
             usersignup.push(signuser)
             CSV.open("data/users.csv", "a+") do |csv|
                 csv << signuser.values
-                puts "======= Congratulations ======="
-                puts "You have successfully registered."
-                puts "Press enter to go back menu"
+                puts "======= Congratulations =======".green
+                puts "You have successfully registered.".green
+                puts "= Press enter to go back menu =".cyan
                 gets
             end
         when 3
@@ -248,27 +258,10 @@ until the_user_wants_to_quit
             sleep(0.2)
             print "\e[2J\e[f"
         end
-        # if user != {}
-            # user can fill out a survey
-            # user can view points
-            # user can change email address
-        # end
-
     when 3
         print "\e[2J\e[f"
         the_user_wants_to_quit = true
     end
 end
-
 print "\e[2J\e[f"
-puts " 
-                                                ######    #######   #######  ########  ########  ##    ## ######## 
-                                                ##    ##  ##     ## ##     ## ##     ## ##     ##  ##  ##  ##       
-                                                ##        ##     ## ##     ## ##     ## ##     ##   ####   ##       
-                                                ##   #### ##     ## ##     ## ##     ## ########     ##    ######   
-                                                ##    ##  ##     ## ##     ## ##     ## ##     ##    ##    ##       
-                                                ##    ##  ##     ## ##     ## ##     ## ##     ##    ##    ##       
-                                                 ######    #######   #######  ########  ########     ##    ######## ".red
-puts ""
-# take the new updated users_array
-# write to CSV
+Adminsay.goodbye
