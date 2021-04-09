@@ -101,4 +101,20 @@ module Adcontroller
         end
     end
 
+    def usersignup
+        usersignup = []
+        signuser = {}
+        sleep(0.2)
+        print "\e[2J\e[f"
+        puts "What is your username?".cyan
+        signuser[:username] = gets.chomp
+        puts "What is your password?".cyan
+        signuser[:password] = gets.chomp
+        usersignup.push(signuser)
+        CSV.open("data/users.csv", "a+") do |csv|
+            csv << signuser.values
+            Adminsay.usersignupdone
+        end
+    end
+
 end
