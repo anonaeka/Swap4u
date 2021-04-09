@@ -21,7 +21,6 @@ Adminsay.thenametitle
     user_input = prompt.select("Select an action?", choices)
     case user_input
     when 1
-        puts "======================".cyan
         sleep(0.3)
         print "\e[2J\e[f"
         prompt = TTY::Prompt.new(active_color: :red)
@@ -34,14 +33,13 @@ Adminsay.thenametitle
         when 1
             # Part of Admin
             admin_login = false
-            puts "======================".cyan
             sleep(0.2)
             print "\e[2J\e[f"
             # Admin action
             true_admin = false
-            puts "What is your Adminname?"
+            puts "What is your Adminname?".cyan
             adminname = gets.chomp
-            puts "What is your Adminpassword?"
+            puts "What is your Adminpassword?".cyan
             adminpass = gets.chomp
             CSV.open("data/adminusers.csv", "r") do |csv|
                 csv.each do |line|
@@ -55,8 +53,7 @@ Adminsay.thenametitle
                 end
             end
             if admin_login == false
-                puts "Incorrect Information."
-                puts "Press enter to go back menu."
+                Adminsay.incorrectinfo
                 gets
             end
             while admin_login == true
@@ -72,14 +69,11 @@ Adminsay.thenametitle
                     # Backup Survey File
                     the_user_wants_to_quit = false
                     until the_user_wants_to_quit
-                        File.rename("data/quiz/survey.csv", "data/quizbackup/backup.csv")
-                        CSV.open("data/quiz/survey.csv", "a")
-                        print "\e[2J\e[f"
-                        sleep(0.2)
-                        puts "Complete."
-                        puts "Press enter to go back menu."
+                        Adcontroller.backupfile
+                        puts "Press enter to go back menu.".green
                         gets
                         the_user_wants_to_quit = true
+                        print "\e[2J\e[f"
                     end
                 elsif input == "d"
                     # Delete Survey File
@@ -88,8 +82,8 @@ Adminsay.thenametitle
                         Adcontroller.deletecsv
                         puts "Press enter to go back menu.".green
                         gets
-                        print "\e[2J\e[f"
                         the_user_wants_to_quit = true
+                        print "\e[2J\e[f"
                     end
                 elsif input == "l"
                     admin_login = false
@@ -101,13 +95,11 @@ Adminsay.thenametitle
             end
         when 2
             # Exit
-            puts "======================".cyan
             sleep(0.2)
             print "\e[2J\e[f"
         end
     when 2
         # Part of Users
-        puts "======================".cyan
         sleep(0.3)
         print "\e[2J\e[f"
         choices = [
@@ -120,7 +112,6 @@ Adminsay.thenametitle
         when 1
             #UserLogin
             user_login = false
-            puts "======================".cyan
             sleep(0.2)
             print "\e[2J\e[f"
             true_user = false
@@ -141,20 +132,16 @@ Adminsay.thenametitle
                 end
             end
             if user_login == false
-                puts "Incorrect Information."
-                puts "Press enter to go back menu."
+                Adminsay.incorrectinfo
                 gets
             end
             #UserAction
             while user_login == true
-                puts "Hello User"
-                puts "What would you like to do?"
-                puts "Optional : [S]urvey, [L]ogout" 
+                Adminsay.hellouser
                 input = gets.chomp.downcase
                 if input == "s"
                 #DoSurvey
                     listquestions = []
-                    puts "======================".cyan
                     sleep(0.2)
                     print "\e[2J\e[f"
                     CSV.open("data/quiz/survey.csv", "r") do |csv|
@@ -174,13 +161,13 @@ Adminsay.thenametitle
                         puts "Enter your answer"
                         input = gets.chomp.downcase
                         listanswers.push(input)
+                        print "\e[2J\e[f"
                     end
                     p listanswers
                     CSV.open("data/answer/userans.csv", "a+") do |csv|
                         csv << listanswers
                     end
                     print "\e[2J\e[f"
-                    sleep(0.2)
                 elsif input == "l"
                     user_login = false
                 else
@@ -191,26 +178,19 @@ Adminsay.thenametitle
             #UserSignup
             usersignup = []
             signuser = {}
-            puts "======================".cyan
             sleep(0.2)
             print "\e[2J\e[f"
-            puts "What is your username?"
+            puts "What is your username?".cyan
             signuser[:username] = gets.chomp
-            puts "What is your password?"
+            puts "What is your password?".cyan
             signuser[:password] = gets.chomp
-            puts "What is your email?"
-            signuser[:emailuser] = gets.chomp
             usersignup.push(signuser)
             CSV.open("data/users.csv", "a+") do |csv|
                 csv << signuser.values
-                puts "======= Congratulations =======".green
-                puts "You have successfully registered.".green
-                puts "= Press enter to go back menu =".cyan
-                gets
+                Adminsay.usersignupdone
             end
         when 3
             # Exit
-            puts "======================".cyan
             sleep(0.2)
             print "\e[2J\e[f"
         end
