@@ -3,11 +3,6 @@ module Adminsay
   def adminsay
     puts "=================== Hello Admin ====================".cyan
     puts "============ What would you like to do? ============".green
-    puts "====================  Optional  ====================".green
-    puts "===== Please type the first letter of functions ====".yellow
-    puts "===[C]reate Survey  [R]ead Survey  [B]ack Up File===".green
-    puts "===============   [D]elete Survey   ================".red
-    puts "====================  [L]ogout  ====================".yellow
   end
 
   def thenametitle
@@ -40,7 +35,6 @@ module Adminsay
     print "\e[2J\e[f"
     sleep(0.2)
     puts "Please type the first letters of function do you need.".red
-    puts "Please type the first letters of function do you need.".red
     sleep(1.5)
     print "\e[2J\e[f"
   end
@@ -48,15 +42,19 @@ module Adminsay
   def hellouser
     puts "=================== Hello User =====================".cyan
     puts "============ What would you like to do? ============".green
-    puts "====================  Optional  ====================".green
-    puts "===== Please type the first letter of functions ====".yellow
-    puts "====================  [S]urvey  ====================".green
-    puts "====================  [L]ogout  ====================".yellow
   end
 
   def usersignupdone
     puts "==================== Congratulations ================".green
     puts "========= You have successfully registered ==========".green
+    puts "=========== Press enter to go back menu =============".cyan
+    gets
+    print "\e[2J\e[f"
+  end
+
+  def thxforanswer
+    print "\e[2J\e[f"
+    puts "================= Thank you for answers =============".green
     puts "=========== Press enter to go back menu =============".cyan
     gets
     print "\e[2J\e[f"

@@ -1,6 +1,7 @@
 require 'colorize'
 require 'tty-prompt'
 require 'csv'
+require 'fileutils'
 
 require_relative "method/adminsay.rb"
 require_relative "method/controller.rb"
@@ -23,7 +24,6 @@ Adminsay.thenametitle
     when 1
         sleep(0.3)
         print "\e[2J\e[f"
-        prompt = TTY::Prompt.new(active_color: :red)
         choices = [
             {name:'Admin Login', value: 1},
             {name:'Go Back', value: 2},
@@ -57,19 +57,26 @@ Adminsay.thenametitle
                 gets
             end
             while admin_login == true
-                Adminsay.adminsay
-                input = gets.chomp.downcase
-                if input == "c"
+                print "\e[2J\e[f"
+            choices = [
+            {name:'Create Survey', value: 1},
+            {name:'Read Survey', value: 2},
+            {name:'Back Up File', value: 3},
+            {name:'Delete Survey', value: 4},
+            {name:'Logout', value: 5},
+            ]
+        user_input = prompt.select("Select an action?", choices)
+        case user_input
+                # Adminsay.adminsay
+                when 1
                     # Create survey
                     Adcontroller.createquiz
-                elsif input == "r"
+                when 2
                     # Read Survey
                     Adcontroller.readsurvey
-                elsif input == "b"
+                when 3
                     # Backup Survey File
                     print "\e[2J\e[f"
-                    the_user_wants_to_quit = false
-                    until the_user_wants_to_quit
                         choices = [
                             {name:'Backup Quiz', value: 1},
                             {name:'Backup Answer', value: 2},
@@ -82,26 +89,15 @@ Adminsay.thenametitle
                         when 2
                             Adcontroller.backupanswerfile
                         when 3
-                        the_user_wants_to_quit = true
                         print "\e[2J\e[f"
-                    end
                 end
-                elsif input == "d"
+                when 4
                     # Delete Survey File
-                    the_user_wants_to_quit = false
-                    until the_user_wants_to_quit
                         Adcontroller.deletecsv
-                        puts "Press enter to go back menu.".green
-                        gets
-                        the_user_wants_to_quit = true
-                        print "\e[2J\e[f"
-                    end
-                elsif input == "l"
+                when 5
                     admin_login = false
                     sleep(0.2)
                     print "\e[2J\e[f"
-                else
-                    Adminsay.errorfuctions
                 end
             end
         when 2
@@ -126,9 +122,9 @@ Adminsay.thenametitle
             sleep(0.2)
             print "\e[2J\e[f"
             true_user = false
-            puts "What is your Username?"
+            puts "What is your Username?".cyan
             usernname = gets.chomp
-            puts "What is your Password?"
+            puts "What is your Password?".cyan
             password = gets.chomp
             CSV.open("data/users.csv", "r") do |csv|
                 csv.each do |line|
@@ -148,9 +144,16 @@ Adminsay.thenametitle
             end
             #UserAction
             while user_login == true
-                Adminsay.hellouser
-                input = gets.chomp.downcase
-                if input == "s"
+            sleep(0.3)
+            print "\e[2J\e[f"
+            Adminsay.hellouser
+            choices = [
+                {name:'Do Survey', value: 1},
+                {name:'Logout', value: 2},
+            ]
+            user_input = prompt.select("Select an action?", choices)
+            case user_input
+            when 1
                 #DoSurvey
                     listquestions = []
                     sleep(0.2)
@@ -178,11 +181,9 @@ Adminsay.thenametitle
                     CSV.open("data/answer/userans.csv", "a+") do |csv|
                         csv << listanswers
                     end
-                    print "\e[2J\e[f"
-                elsif input == "l"
+                    Adminsay.thxforanswer
+                when 
                     user_login = false
-                else
-                    Adminsay.errorfuctions
                 end
             end
         when 2
