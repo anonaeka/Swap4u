@@ -1,10 +1,12 @@
 module Adcontroller
 
     def createquiz
+        print "\e[2J\e[f"
         questions = []
         the_user_wants_to_quit = false
         until the_user_wants_to_quit
             hash = {}
+            Adminsay.thenametitleshort
             puts "What a question?".green
             hash[:question] = gets.chomp
             puts "What an answer A".cyan
@@ -18,6 +20,8 @@ module Adcontroller
                 csv << hash.values
             end
             p questions
+            print "\e[2J\e[f"
+            Adminsay.thenametitleshort
             prompt = TTY::Prompt.new(active_color: :red)
                 choices = [
                     {name:'Add More Question?', value: 1},
@@ -26,7 +30,7 @@ module Adcontroller
                 user_input = prompt.select("Select an action?", choices)
                 case user_input
                 when 1
-                    print "\e[2J\e[f"
+                print "\e[2J\e[f"
                 when 2
                 the_user_wants_to_quit = true
                 print "\e[2J\e[f"
@@ -99,12 +103,45 @@ module Adcontroller
         prompt = TTY::Prompt.new(active_color: :red)
         Adminsay.thenametitleshort
         choices = [
-            {name:'Do you need to delete survey?', value: 1},
+            {name:'Do you need to delete user answer?', value: 1},
+            {name:'Do you need to delete survey?', value: 2},
             {name:'Go Back', value: 2},
         ]
         user_input = prompt.select("Select an action?", choices)
         case user_input
         when 1
+            print "\e[2J\e[f"
+            sleep(0.2)
+            Adminsay.thenametitleshort
+            print "Enter ".yellow
+            print "userans.csv".red
+            print " to delete".yellow
+            puts ""
+            delete_file_name = gets.chomp.downcase
+            if File.exist?("data/answer/" + delete_file_name)
+                File.delete("data/answer/" + delete_file_name)
+                print "File".yellow
+                sleep(0.4)
+                print " #{delete_file_name}".green
+                print " has deleted".yellow
+                puts ""
+                puts "Press enter to go back menu.".green
+                gets
+                print "\e[2J\e[f"
+                else
+                print "\e[2J\e[f"
+                sleep(0.2)
+                Adminsay.thenametitleshort
+                print "File".red
+                sleep(0.4)
+                print " #{delete_file_name}".yellow
+                print " does not exist".red
+                puts ""
+                puts "Press enter to go back menu.".green
+                gets
+                print "\e[2J\e[f"
+            end
+        when 2
             print "\e[2J\e[f"
             sleep(0.2)
             Adminsay.thenametitleshort
@@ -116,14 +153,19 @@ module Adcontroller
             if File.exist?("data/quiz/" + delete_file_name)
                 File.delete("data/quiz/" + delete_file_name)
                 print "File".yellow
+                sleep(0.4)
                 print " #{delete_file_name}".green
                 print " has deleted".yellow
                 puts ""
+                puts "Press enter to go back menu.".green
+                gets
+                print "\e[2J\e[f"
                 else
                 print "\e[2J\e[f"
                 sleep(0.2)
                 Adminsay.thenametitleshort
                 print "File".red
+                sleep(0.4)
                 print " #{delete_file_name}".yellow
                 print " does not exist".red
                 puts ""
@@ -131,7 +173,7 @@ module Adcontroller
                 gets
                 print "\e[2J\e[f"
             end
-        when 2
+        when 3
                 print "\e[2J\e[f"
         end
     end

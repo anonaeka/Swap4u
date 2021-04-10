@@ -17,7 +17,8 @@ Adminsay.thenametitle
     choices = [
         {name:'Admin', value: 1},
         {name:'General User', value: 2},
-        {name:'Exit', value: 3},
+        {name:'Go Back', value: 3},
+        {name:'Exit', value: 4},
     ]
     user_input = prompt.select("Select an action?", choices)
     case user_input
@@ -64,8 +65,8 @@ Adminsay.thenametitle
             choices = [
             {name:'Create Survey', value: 1},
             {name:'Read Survey', value: 2},
-            {name:'Back Up File', value: 3},
-            {name:'Delete Survey', value: 4},
+            {name:'Back Up Files', value: 3},
+            {name:'Delete Files', value: 4},
             {name:'Logout', value: 5},
             ]
         user_input = prompt.select("Select an action?", choices)
@@ -116,7 +117,7 @@ Adminsay.thenametitle
         choices = [
             {name:'Login', value: 1},
             {name:'Signup', value: 2},
-            {name:'Exit', value: 3},
+            {name:'Go Back', value: 3},
         ]
         user_input = prompt.select("Select an action?", choices)
         case user_input
@@ -196,18 +197,24 @@ Adminsay.thenametitle
                 end
             end
         when 2
-            #UserSignup
+            # UserSignup
             Adcontroller.usersignup
         when 3
-            # Exit
+            # Go Back
             sleep(0.2)
             print "\e[2J\e[f"
         end
     when 3
+        the_user_wants_to_quit = true
+        print "\e[2J\e[f"
+        system 'clear'
+        sleep(0.2)
+        load "view/view.rb"
+    when 4
         print "\e[2J\e[f"
         the_user_wants_to_quit = true
     end
 end
-print "\e[2J\e[f"
-system 'clear'
-Adminsay.goodbye
+        print "\e[2J\e[f"
+        system 'clear'
+        Adminsay.goodbye

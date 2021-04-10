@@ -4,9 +4,6 @@ GEM
     colorize (0.8.1)
     pastel (0.8.0)
       tty-color (~> 0.5)
-    power_assert (2.0.0)
-    test-unit (3.4.0)
-      power_assert
     tty-color (0.6.0)
     tty-cursor (0.7.1)
     tty-prompt (0.23.0)
@@ -24,8 +21,7 @@ PLATFORMS
 
 DEPENDENCIES
   colorize (~> 0.8.1)
-  test-unit (~> 3.4)
   tty-prompt (~> 0.23.0)
 
 BUNDLED WITH
-   2.2.15
+   2.2.16
