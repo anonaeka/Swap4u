@@ -3,7 +3,7 @@
 
 * [T1A3 - Terminal Application [Swap4U] - GitHub Repository](https://github.com/anonaeka/T1A3)
 ## Title Screen
-<img src = "docs/images/title_4u.jpg">
+<img src = "docs/title_4u.jpg">
 
 #
 
