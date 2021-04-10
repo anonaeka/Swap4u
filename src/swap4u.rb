@@ -24,6 +24,7 @@ Adminsay.thenametitle
     when 1
         sleep(0.3)
         print "\e[2J\e[f"
+        Adminsay.thenametitleshort
         choices = [
             {name:'Admin Login', value: 1},
             {name:'Go Back', value: 2},
@@ -36,6 +37,7 @@ Adminsay.thenametitle
             sleep(0.2)
             print "\e[2J\e[f"
             # Admin action
+            Adminsay.thenametitleshort
             true_admin = false
             puts "What is your Adminname?".cyan
             adminname = gets.chomp
@@ -54,10 +56,10 @@ Adminsay.thenametitle
             end
             if admin_login == false
                 Adminsay.incorrectinfo
-                gets
             end
             while admin_login == true
                 print "\e[2J\e[f"
+                Adminsay.thenametitleshort
             choices = [
             {name:'Create Survey', value: 1},
             {name:'Read Survey', value: 2},
@@ -77,6 +79,7 @@ Adminsay.thenametitle
                 when 3
                     # Backup Survey File
                     print "\e[2J\e[f"
+                    Adminsay.thenametitleshort
                         choices = [
                             {name:'Backup Quiz', value: 1},
                             {name:'Backup Answer', value: 2},
@@ -109,6 +112,7 @@ Adminsay.thenametitle
         # Part of Users
         sleep(0.3)
         print "\e[2J\e[f"
+        Adminsay.thenametitleshort
         choices = [
             {name:'Login', value: 1},
             {name:'Signup', value: 2},
@@ -121,6 +125,7 @@ Adminsay.thenametitle
             user_login = false
             sleep(0.2)
             print "\e[2J\e[f"
+            Adminsay.thenametitleshort
             true_user = false
             puts "What is your Username?".cyan
             usernname = gets.chomp
@@ -140,12 +145,12 @@ Adminsay.thenametitle
             end
             if user_login == false
                 Adminsay.incorrectinfo
-                gets
             end
             #UserAction
             while user_login == true
             sleep(0.3)
             print "\e[2J\e[f"
+            Adminsay.thenametitleshort
             Adminsay.hellouser
             choices = [
                 {name:'Do Survey', value: 1},
@@ -155,24 +160,25 @@ Adminsay.thenametitle
             case user_input
             when 1
                 #DoSurvey
-                    listquestions = []
-                    sleep(0.2)
-                    print "\e[2J\e[f"
-                    CSV.open("data/quiz/survey.csv", "r") do |csv|
+                sleep(0.2)
+                print "\e[2J\e[f"
+                listquestions = []
+                CSV.open("data/quiz/survey.csv", "r") do |csv|
                         csv.each do |line|
-                            hash = {question: line[0], answerA: line[1], answerB: line[2], answerC: line[3]}
-                            listquestions.push(hash)
+                        hash = {question: line[0], answerA: line[1], answerB: line[2], answerC: line[3]}
+                        listquestions.push(hash)
                         end
                     end
                     listanswers = [user[:username]]
                     listquestions.each do |hash|
+                        Adminsay.thenametitleshort
                         p "---------------------"
-                        puts " #{hash[:question]}"
-                        puts " #{hash[:answerA]}"
-                        puts " #{hash[:answerB]}"
-                        puts " #{hash[:answerC]}"
+                        puts " #{hash[:question]}".yellow
+                        puts " #{hash[:answerA]}".cyan
+                        puts " #{hash[:answerB]}".cyan
+                        puts " #{hash[:answerC]}".cyan
                         p "---------------------"
-                        puts "Enter your answer"
+                        puts "Enter your answer".green
                         input = gets.chomp.downcase
                         listanswers.push(input)
                         print "\e[2J\e[f"
@@ -180,10 +186,11 @@ Adminsay.thenametitle
                     p listanswers
                     CSV.open("data/answer/userans.csv", "a+") do |csv|
                         csv << listanswers
-                    end
-                    Adminsay.thxforanswer
-                when 
-                    user_login = false
+                end
+                Adminsay.thxforanswer
+                when 2
+                user_login = false
+                print "\e[2J\e[f"
                 end
             end
         when 2

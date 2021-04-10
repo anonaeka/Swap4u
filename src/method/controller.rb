@@ -36,6 +36,7 @@ module Adcontroller
 
     def readsurvey
         print "\e[2J\e[f"
+        Adminsay.thenametitleshort
         the_user_wants_to_quit = false
         until the_user_wants_to_quit
             CSV.open("data/quiz/survey.csv","r") do |csv|
@@ -52,6 +53,8 @@ module Adcontroller
     end
 
     def backupfile
+        print "\e[2J\e[f"
+        Adminsay.thenametitleshort
         file_path = "data/quiz/survey.csv"
         destination_directory = "data/quizbackup/"
         FileUtils.cp(file_path, destination_directory)
@@ -62,6 +65,7 @@ module Adcontroller
         renamebackup = gets.chomp.downcase
         File.rename("data/quizbackup/survey.csv", "data/quizbackup/" + renamebackup + ".csv")
         print "\e[2J\e[f"
+        Adminsay.thenametitleshort
         sleep(0.7)
         puts "Backup Completed".yellow
         puts "Press enter to go back menu.".green
@@ -70,6 +74,8 @@ module Adcontroller
     end
 
     def backupanswerfile
+        print "\e[2J\e[f"
+        Adminsay.thenametitleshort
         file_path = "data/answer/userans.csv"
         destination_directory = "data/ansbackup/"
         FileUtils.cp(file_path, destination_directory)
@@ -80,6 +86,7 @@ module Adcontroller
         answerbackup = gets.chomp.downcase
         File.rename("data/ansbackup/userans.csv", "data/ansbackup/" + answerbackup + ".csv")
         print "\e[2J\e[f"
+        Adminsay.thenametitleshort
         sleep(0.7)
         puts "Backup Completed".yellow
         puts "Press enter to go back menu.".green
@@ -88,8 +95,9 @@ module Adcontroller
     end
 
     def deletecsv
-        prompt = TTY::Prompt.new(active_color: :red)
         print "\e[2J\e[f"
+        prompt = TTY::Prompt.new(active_color: :red)
+        Adminsay.thenametitleshort
         choices = [
             {name:'Do you need to delete survey?', value: 1},
             {name:'Go Back', value: 2},
@@ -99,6 +107,7 @@ module Adcontroller
         when 1
             print "\e[2J\e[f"
             sleep(0.2)
+            Adminsay.thenametitleshort
             print "Enter ".yellow
             print "survey.csv".red
             print " to delete".yellow
@@ -113,6 +122,7 @@ module Adcontroller
                 else
                 print "\e[2J\e[f"
                 sleep(0.2)
+                Adminsay.thenametitleshort
                 print "File".red
                 print " #{delete_file_name}".yellow
                 print " does not exist".red
@@ -131,6 +141,7 @@ module Adcontroller
         signuser = {}
         sleep(0.2)
         print "\e[2J\e[f"
+        Adminsay.thenametitleshort
         puts "What is your username?".cyan
         signuser[:username] = gets.chomp
         puts "What is your password?".cyan
