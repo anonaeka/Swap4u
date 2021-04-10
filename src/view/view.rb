@@ -9,6 +9,7 @@ print "\e[2J\e[f"
 quit = false
 until quit
     prompt = TTY::Prompt.new(active_color: :blue)
+    Adminsay.introductionview
     choices = [
         {name:'Introduction', value: 1},
         {name:'Start to Swap4U App', value: 2},
@@ -23,6 +24,7 @@ until quit
     until stop
     print "\e[2J\e[f"
     Runanime.anime
+    puts "Enter to go back".red
     gets
     print "\e[2J\e[f"
     stop = true
@@ -30,6 +32,7 @@ until quit
 
     when 2
     print "\e[2J\e[f"
+    sleep(0.2)
     load './swap4u.rb'
     quit = true
 

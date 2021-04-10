@@ -60,6 +60,7 @@ Adminsay.thenametitle
             while admin_login == true
                 print "\e[2J\e[f"
                 Adminsay.thenametitleshort
+                Adminsay.adminsay
             choices = [
             {name:'Create Survey', value: 1},
             {name:'Read Survey', value: 2},
@@ -69,7 +70,6 @@ Adminsay.thenametitle
             ]
         user_input = prompt.select("Select an action?", choices)
         case user_input
-                # Adminsay.adminsay
                 when 1
                     # Create survey
                     Adcontroller.createquiz
@@ -128,16 +128,16 @@ Adminsay.thenametitle
             Adminsay.thenametitleshort
             true_user = false
             puts "What is your Username?".cyan
-            usernname = gets.chomp
+            username = gets.chomp
             puts "What is your Password?".cyan
             password = gets.chomp
             CSV.open("data/users.csv", "r") do |csv|
                 csv.each do |line|
-                    if line[0] == usernname
+                    if line[0] == username
                         if line[1] == password
                         true_user = true
                         user_login = true
-                        user[:username] = usernname
+                        user[:username] = username
                         print "\e[2J\e[f"
                         end
                     end
@@ -151,6 +151,8 @@ Adminsay.thenametitle
             sleep(0.3)
             print "\e[2J\e[f"
             Adminsay.thenametitleshort
+            user_online = username
+            puts "User: ".yellow + user_online + " Online".green
             Adminsay.hellouser
             choices = [
                 {name:'Do Survey', value: 1},
@@ -207,4 +209,5 @@ Adminsay.thenametitle
     end
 end
 print "\e[2J\e[f"
+system 'clear'
 Adminsay.goodbye
