@@ -5,6 +5,7 @@ require_relative "../method/animeview.rb"
 
 include Adminsay
 include Runanime
+system 'clear'
 print "\e[2J\e[f"
 quit = false
 until quit
