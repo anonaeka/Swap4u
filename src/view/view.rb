@@ -2,6 +2,7 @@ require 'colorize'
 require 'tty-prompt'
 require_relative "../method/adminsay.rb"
 require_relative "../method/animeview.rb"
+require_relative "../method/animeclass.rb"
 
 include Adminsay
 include Runanime
@@ -24,9 +25,12 @@ until quit
     stop = false
     until stop
     print "\e[2J\e[f"
-    Runanime.anime
-    puts "Enter to go back".red
-    gets
+    Runanime.textanime
+    loop do
+        Adminsay.yesinput
+        break if gets.chomp.downcase == 'y'
+        print "\e[2J\e[f"
+    end
     print "\e[2J\e[f"
     stop = true
     end

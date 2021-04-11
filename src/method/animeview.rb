@@ -1,25 +1,36 @@
 module Runanime
-
-    def anime
-        puts "Hello"
-        sleep 2
-        puts "Test1"
-        sleep 2
-        puts "Test2"
-        sleep 1
-        puts "Test3"
-        sleep 2
+    def textanime
+        system 'clear'
+        puts "
+░█──░█ █▀▀ █── █▀▀ █▀▀█ █▀▄▀█ █▀▀ 
+░█░█░█ █▀▀ █── █── █──█ █─▀─█ █▀▀ 
+░█▄▀▄█ ▀▀▀ ▀▀▀ ▀▀▀ ▀▀▀▀ ▀───▀ ▀▀▀
+        ".green
+        sleep(0.6)
         print "\e[2J\e[f"
-        puts "\Test4\nTest5"
-        sleep 2
-        puts "Finally"
-        sleep 2
-        puts "Ready?"
-        sleep 1
-        puts "Go!!"
-        sleep 2
-    end
-
-    def runcat
+        puts "
+▀█▀ █▀█
+░█░ █▄█
+        ".yellow
+        sleep(0.6)
+        print "\e[2J\e[f"
+        puts "
+█ █▄░█ ▀█▀ █▀█ █▀█ █▀▄ █░█ █▀▀ █▀▀
+█ █░▀█ ░█░ █▀▄ █▄█ █▄▀ █▄█ █▄▄ ██▄             
+        ".cyan
+        sleep(0.6)
+        print "\e[2J\e[f"
+        puts "
+█▀ █░█░█ ▄▀█ █▀█ █░█ █░█
+▄█ ▀▄▀▄▀ █▀█ █▀▀ ▀▀█ █▄█     
+        ".red
+        sleep(0.6)
+        print "\e[2J\e[f"
+        puts "
+▄▀█ █▀█ █▀█
+█▀█ █▀▀ █▀▀  
+        ".yellow
+        sleep(0.6)
+        print "\e[2J\e[f"
     end
 end

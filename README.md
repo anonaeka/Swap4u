@@ -50,7 +50,13 @@ Since this application uses the TTY:: Prompt gem, it significantly reduces the i
 <img src = "docs/Error1.JPG">
 
 # Control Flow Development
+<img src = "docs/flow4u.PNG">
 
 # Implementation plan and design
+I built a Trello board to set the length of time for the application to be easier and as a reminder of what to do first. My Trello board is divided into five big features. Where in the first part determines the length of time it runs from start to deadline. The rest are components between events to remind you of what must be present. Moreover, there was a problem that arose during the creation of this app, which was added to warn what the problem is now and how to fix it. It for minimize errors before the submission process.
 
+### [Swap4U Trello Board Online](https://trello.com/b/UNdduWY2/t1a3-terminal-applicationswap4u)
 
+<img src = "docs/trelloboard.JPG">
+
+# Help documentation

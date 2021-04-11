@@ -21,6 +21,31 @@ module Adminsay
     puts"                                                            Anon Jaloenklung".green
   end
 
+  def yesinput
+    print "
+    =▀▀█▀▀ █──█ █▀▀█ █▀▀ 
+    =──█── █▄▄█ █──█ █▀▀ 
+    =──▀── ▄▄▄█ █▀▀▀ ▀▀▀
+"
+    print "
+          ░█──░█ 
+          ░█▄▄▄█ 
+          ──░█──
+".yellow
+    print "
+█▀▀▀ █▀▀█ 　 █▀▀▄ █▀▀█ █▀▀ █─█ 
+█─▀█ █──█ 　 █▀▀▄ █▄▄█ █── █▀▄ 
+▀▀▀▀ ▀▀▀▀ 　 ▀▀▀─ ▀──▀ ▀▀▀ ▀─▀
+"
+  puts ""
+  print "Type "
+  print "Y".yellow
+  print " or "
+  print "y".yellow
+  print " to Go Back"
+  puts ""
+  end
+
   def adminsay
     print "Hello ".cyan
     print "Admin".red

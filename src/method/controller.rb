@@ -194,5 +194,4 @@ module Adcontroller
             Adminsay.usersignupdone
         end
     end
-
 end
