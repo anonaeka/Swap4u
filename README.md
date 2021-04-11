@@ -95,6 +95,11 @@ I built a Trello board to set the length of time for the application to be easie
     $ bundle add tty-prompt
     ```
 - Using the terminal navigate to the src directory of the repository then run the application.
+
+    ```
+    $ cd src
+    ```
+    then
     ```
     $ ./run_app.sh
     ```
