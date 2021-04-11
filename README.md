@@ -50,7 +50,7 @@ Since this application uses the TTY:: Prompt gem, it significantly reduces the i
 <img src = "docs/Error1.JPG">
 
 # Control Flow Development
-<img src = "docs/flow4u.PNG">
+<img src = "docs/flow4u.png">
 
 # Implementation plan and design
 I built a Trello board to set the length of time for the application to be easier and as a reminder of what to do first. My Trello board is divided into five big features. Where in the first part determines the length of time it runs from start to deadline. The rest are components between events to remind you of what must be present. Moreover, there was a problem that arose during the creation of this app, which was added to warn what the problem is now and how to fix it. It for minimize errors before the submission process.
@@ -60,3 +60,85 @@ I built a Trello board to set the length of time for the application to be easie
 <img src = "docs/trelloboard.JPG">
 
 # Help documentation
+
+## Install the application & Run the application 
+
+- If you do not have Ruby on your computer, follow the website below.
+
+    [Ruby Website](https://www.ruby-lang.org/en/documentation/installation/)
+
+- Download or clone T1A3 project files onto your computer. Link below
+
+    [Swap4U Git Hub Link](https://github.com/anonaeka/T1A3)
+
+    or copy below to the terminal command line.
+
+    ```
+    gh repo clone anonaeka/T1A3
+    ```
+
+- If you do not have the "bundler" gem installed on your computer, please enter the following code. 
+    
+    In case, if you want to install it by yourself
+
+    ```
+    $ install bundler
+    ```
+    or
+    ```
+    $ gem install bundler
+    ```
+    Then followed by this command.
+    ```
+    $ bundle init
+    $ bundle add colorize
+    $ bundle add tty-prompt
+    ```
+- Using the terminal navigate to the src directory of the repository then run the application.
+    ```
+    $ ./run_app.sh
+    ```
+
+    ## Tricks
+    If you want the convenience of accessing this application without taking a lot of steps.
+
+    <img src = "docs/openapp.jpg">
+
+    You will see the name run_app_ruby.sh. This one is different from run_app.sh, in that you will install Ruby Gems this app require. Then it will run the application after installing Ruby Gems. 
+    
+    By entering this command into the terminal.
+
+    ```
+    $ ./run_app_ruby.sh
+    ```
+
+## Dependencies
+
+Swap4U is an app built to run directly on Mac systems, but on the other hand, the user part of the Window system needs to run it through the Ubuntu program.
+
+The installation method will be in the link below.
+
+[Ubuntu Link](https://ubuntu.com/tutorials/ubuntu-on-windows#1-overview)
+
+### Require Ruby Gems
+
+Swap4U utilise the following gems and the app will crash or won't work in case your device does not have gems installed.
+
+- gem "colorize", "~> 0.8.1"
+
+- gem "tty-prompt", "~> 0.23.0"
+
+### Window User Issue with Bash Scripts
+For some users problem in the window system, it may have trouble accessing bash. script if the app uses TTY: prompt Gem.
+
+The basic workaround is to run directly with ruby.
+
+```
+$ ruby view/view.rb
+```
+or
+
+```
+$ ruby swap4u.rb
+```
+If you want to skip the Introduction.
