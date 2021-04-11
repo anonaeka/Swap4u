@@ -38,11 +38,13 @@ module Adminsay
 ▀▀▀▀ ▀▀▀▀ 　 ▀▀▀─ ▀──▀ ▀▀▀ ▀─▀
 "
   puts ""
+  print "Then ".green
   print "Type "
   print "Y".yellow
   print " or "
   print "y".yellow
-  print " to Go Back"
+  print " to "
+  print "Go Back Menu".green
   puts ""
   end
 
@@ -91,10 +93,27 @@ module Adminsay
       puts""
   end
 
-  def incorrectinfo
+  def incorrectinfoadmin
     print "\e[2J\e[f"
     Adminsay.thenametitleshort
     puts "Incorrect Information.".red
+    print "Please read the ".red
+    print "Introduction ".yellow
+    print "to get "
+    print "Admin User ID.".yellow
+    puts ""
+    puts "Press enter to go back menu.".green
+    gets
+    print "\e[2J\e[f"
+  end
+
+  def incorrectinfouser
+    print "\e[2J\e[f"
+    Adminsay.thenametitleshort
+    puts "Incorrect Information.".red
+    print "Please, sign up first if you do not have ".red
+    print "ID User.".yellow
+    puts ""
     puts "Press enter to go back menu.".green
     gets
     print "\e[2J\e[f"

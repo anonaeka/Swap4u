@@ -26,6 +26,8 @@ until quit
     until stop
     print "\e[2J\e[f"
     Runanime.textanime
+    Catrunning.go
+    Runanime.introex
     loop do
         Adminsay.yesinput
         break if gets.chomp.downcase == 'y'

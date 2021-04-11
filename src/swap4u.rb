@@ -17,7 +17,7 @@ Adminsay.thenametitle
     choices = [
         {name:'Admin', value: 1},
         {name:'General User', value: 2},
-        {name:'Go Back', value: 3},
+        {name:'Back to Introduction', value: 3},
         {name:'Exit', value: 4},
     ]
     user_input = prompt.select("Select an action?", choices)
@@ -56,7 +56,7 @@ Adminsay.thenametitle
                 end
             end
             if admin_login == false
-                Adminsay.incorrectinfo
+                Adminsay.incorrectinfoadmin
             end
             while admin_login == true
                 print "\e[2J\e[f"
@@ -145,7 +145,7 @@ Adminsay.thenametitle
                 end
             end
             if user_login == false
-                Adminsay.incorrectinfo
+                Adminsay.incorrectinfouser
             end
             #UserAction
             while user_login == true
